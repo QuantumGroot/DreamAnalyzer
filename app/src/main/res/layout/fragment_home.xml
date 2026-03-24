@@ -82,19 +82,41 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="最近生成的一张图片"
+                android:text="最近生成的图片"
                 android:textColor="@color/morandi_text_secondary"
                 android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_last_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/ic_menu_gallery" />
 
             <TextView
                 android:id="@+id/tv_last_image_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="风格：朦胧水彩（示例占位，可接入真实图片文件）"
+                android:text="点击图片可放大"
                 android:textColor="@color/morandi_text_primary"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_quick_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:backgroundTint="@color/morandi_primary"
+            android:text="发布博客以记录此时的心情"
+            android:textColor="@color/white" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
 
     </LinearLayout>
 

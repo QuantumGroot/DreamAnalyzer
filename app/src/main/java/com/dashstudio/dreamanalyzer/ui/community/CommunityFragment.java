@@ -1,17 +1,16 @@
 package com.dashstudio.dreamanalyzer.ui.community;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.dashstudio.dreamanalyzer.R;
 import com.dashstudio.dreamanalyzer.data.LocalDataRepository;
 import com.dashstudio.dreamanalyzer.databinding.FragmentCommunityBinding;
 
@@ -32,49 +31,27 @@ public class CommunityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        refreshHint();
         refreshPosts();
     }
 
     private void setupActions() {
-        binding.fabAddPost.setOnClickListener(v -> showCreatePostDialog());
+        binding.fabAddPost.setOnClickListener(v -> openPublishPage());
     }
 
-    private void showCreatePostDialog() {
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        int padding = 32;
-        layout.setPadding(padding, padding, padding, padding);
+    private void openPublishPage() {
+        NavController navController = Navigation.findNavController(binding.getRoot());
+        navController.navigate(R.id.navigation_publish_blog);
+    }
 
-        EditText titleInput = new EditText(requireContext());
-        titleInput.setHint("标题");
-        titleInput.setInputType(InputType.TYPE_CLASS_TEXT);
-
-        EditText contentInput = new EditText(requireContext());
-        contentInput.setHint("内容（可附图路径描述）");
-        contentInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        contentInput.setMinLines(4);
-
-        layout.addView(titleInput);
-        layout.addView(contentInput);
-
-        new AlertDialog.Builder(requireContext())
-                .setTitle("发布新博客")
-                .setView(layout)
-                .setNegativeButton("取消", null)
-                .setPositiveButton("发布", (dialog, which) -> {
-                    String title = titleInput.getText().toString().trim();
-                    String content = contentInput.getText().toString().trim();
-                    if (title.isEmpty()) {
-                        title = "未命名博客";
-                    }
-                    if (content.isEmpty()) {
-                        content = "（空内容）";
-                    }
-                    LocalDataRepository repository = new LocalDataRepository(requireContext());
-                    repository.addPost(title, content);
-                    refreshPosts();
-                })
-                .show();
+    private void refreshHint() {
+        LocalDataRepository repository = new LocalDataRepository(requireContext());
+        LocalDataRepository.PostDraft draft = repository.getPendingPostDraft();
+        if (draft != null && !draft.isEmpty()) {
+            binding.tvCommunityHint.setText("检测到未发布草稿，点击右下角 + 可继续编辑");
+        } else {
+            binding.tvCommunityHint.setText("点击右下角 + 发布图文博客（本地存储）");
+        }
     }
 
     private void refreshPosts() {

@@ -28,4 +28,10 @@
         android:name="com.dashstudio.dreamanalyzer.ui.settings.SettingsFragment"
         android:label="设置"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_publish_blog"
+        android:name="com.dashstudio.dreamanalyzer.ui.community.PublishBlogFragment"
+        android:label="发布博客"
+        tools:layout="@layout/fragment_publish_blog" />
 </navigation>

@@ -24,6 +24,9 @@ public class LocalDataRepository {
     private static final String KEY_REGISTERED_USER = "registered_user";
     private static final String KEY_REGISTERED_PASSWORD = "registered_password";
     private static final String KEY_LOGGED_IN_USER = "logged_in_user";
+    private static final String KEY_PENDING_POST_TITLE = "pending_post_title";
+    private static final String KEY_PENDING_POST_CONTENT = "pending_post_content";
+    private static final String KEY_PENDING_POST_IMAGE_PATH = "pending_post_image_path";
 
     private final SharedPreferences prefs;
 
@@ -179,6 +182,36 @@ public class LocalDataRepository {
                 .remove(KEY_LAST_EMOTION)
                 .remove(KEY_LAST_SUGGESTION)
                 .remove(KEY_LAST_IMAGE_STYLE)
+                .remove(KEY_PENDING_POST_TITLE)
+                .remove(KEY_PENDING_POST_CONTENT)
+                .apply();
+    }
+
+    public void savePendingPostDraft(String title, String content) {
+        savePendingPostDraft(title, content, "");
+    }
+
+    public void savePendingPostDraft(String title, String content, String imagePath) {
+        prefs.edit()
+                .putString(KEY_PENDING_POST_TITLE, title == null ? "" : title)
+                .putString(KEY_PENDING_POST_CONTENT, content == null ? "" : content)
+                .putString(KEY_PENDING_POST_IMAGE_PATH, imagePath == null ? "" : imagePath)
+                .apply();
+    }
+
+    public PostDraft getPendingPostDraft() {
+        return new PostDraft(
+                prefs.getString(KEY_PENDING_POST_TITLE, ""),
+                prefs.getString(KEY_PENDING_POST_CONTENT, ""),
+                prefs.getString(KEY_PENDING_POST_IMAGE_PATH, "")
+        );
+    }
+
+    public void clearPendingPostDraft() {
+        prefs.edit()
+                .remove(KEY_PENDING_POST_TITLE)
+                .remove(KEY_PENDING_POST_CONTENT)
+                .remove(KEY_PENDING_POST_IMAGE_PATH)
                 .apply();
     }
 
@@ -207,6 +240,24 @@ public class LocalDataRepository {
             this.title = title;
             this.content = content;
             this.createdAt = createdAt;
+        }
+    }
+
+    public static class PostDraft {
+        public final String title;
+        public final String content;
+        public final String imagePath;
+
+        public PostDraft(String title, String content, String imagePath) {
+            this.title = title;
+            this.content = content;
+            this.imagePath = imagePath;
+        }
+
+        public boolean isEmpty() {
+            return (title == null || title.trim().isEmpty())
+                    && (content == null || content.trim().isEmpty())
+                    && (imagePath == null || imagePath.trim().isEmpty());
         }
     }
 }
