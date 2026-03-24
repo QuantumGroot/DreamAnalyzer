@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- 外圈：低饱和深灰紫 -->
+    <path
+        android:fillColor="#8E8796"
+        android:pathData="M32,2A30,30 0 1,1 32,62A30,30 0 1,1 32,2Z" />
+
+    <!-- 中圈：与卡片协调的暖灰 -->
+    <path
+        android:fillColor="#C7BFB5"
+        android:pathData="M32,10A22,22 0 1,1 32,54A22,22 0 1,1 32,10Z" />
+
+    <!-- 内圈：背景同系浅莫兰迪 -->
+    <path
+        android:fillColor="#E6DFD7"
+        android:pathData="M32,17A15,15 0 1,1 32,47A15,15 0 1,1 32,17Z" />
+</vector>

@@ -50,7 +50,7 @@ public class CommunityFragment extends Fragment {
         if (draft != null && !draft.isEmpty()) {
             binding.tvCommunityHint.setText("检测到未发布草稿，点击右下角 + 可继续编辑");
         } else {
-            binding.tvCommunityHint.setText("点击右下角 + 发布图文博客（本地存储）");
+            binding.tvCommunityHint.setText("点击右下角 + 发布图文博客");
         }
     }
 

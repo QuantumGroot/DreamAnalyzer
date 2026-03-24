@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="浏览 / 创作"
+            android:text="浏览"
             android:textColor="@color/morandi_text_primary"
             android:textSize="26sp"
             android:textStyle="bold" />

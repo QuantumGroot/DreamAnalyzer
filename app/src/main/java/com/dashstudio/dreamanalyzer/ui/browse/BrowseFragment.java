@@ -64,9 +64,19 @@ public class BrowseFragment extends Fragment {
 
         setupDaySpinner();
         setupActions();
+        restoreLastGeneration();
         refreshHistory();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (binding != null) {
+            restoreLastGeneration();
+            refreshHistory();
+        }
     }
 
     private void setupDaySpinner() {
@@ -119,10 +129,13 @@ public class BrowseFragment extends Fragment {
 
                 if (result.ok) {
                     LocalDataRepository repository = new LocalDataRepository(requireContext());
+                    String detailedSuggestion = buildDetailedSuggestion(result.dominantEmotion);
                     repository.saveLatestAnalysis(
                             result.dominantEmotion,
-                            "建议：根据主要情绪做呼吸放松与作息微调。\n趋势：以本次统计为主。",
-                            result.imagePath
+                            detailedSuggestion,
+                            result.imagePath,
+                            result.pieChartPath,
+                            result.summary
                     );
                     repository.addGeneratedImageRecord(selectedDay, result.dominantEmotion, "对应图库随机抽取", selectedEdfName);
                     refreshHistory();
@@ -224,6 +237,42 @@ public class BrowseFragment extends Fragment {
         if (piePath != null && !piePath.isEmpty() && new File(piePath).exists()) {
             binding.ivPieChart.setImageBitmap(BitmapFactory.decodeFile(piePath));
         }
+    }
+
+    private void restoreLastGeneration() {
+        LocalDataRepository repository = new LocalDataRepository(requireContext());
+        String lastSummary = repository.getLastGenerationSummary();
+        String lastImagePath = repository.getLastImageStyle();
+        String lastPiePath = repository.getLastPiePath();
+
+        if (lastSummary != null && !lastSummary.trim().isEmpty()) {
+            binding.tvGenerationResult.setText(lastSummary + "\n随机图片：" + lastImagePath + "\n饼图：" + lastPiePath);
+        }
+        renderResultImages(lastImagePath, lastPiePath);
+    }
+
+    private String buildDetailedSuggestion(String dominantEmotion) {
+        String emotion = dominantEmotion == null ? "neutral" : dominantEmotion.toLowerCase();
+
+        String advice;
+        if (emotion.contains("joy") || emotion.contains("happy")) {
+            advice = "建议：保持当前作息节律，可在睡前加入10分钟轻拉伸，巩固积极状态。";
+        } else if (emotion.contains("sadness") || emotion.contains("sad")) {
+            advice = "建议：今晚尽量提前入睡，减少睡前信息刺激，早晨补充自然光照。";
+        } else if (emotion.contains("anger") || emotion.contains("angry")) {
+            advice = "建议：睡前进行5-8分钟腹式呼吸，避免激烈讨论与高唤醒内容。";
+        } else if (emotion.contains("fear")) {
+            advice = "建议：可使用白噪声或放松音乐，降低入睡前警觉性。";
+        } else if (emotion.contains("disgust")) {
+            advice = "建议：关注卧室整洁和气味舒适度，减少环境不适带来的负面感受。";
+        } else if (emotion.contains("surprise")) {
+            advice = "建议：保持规律作息，避免临睡前临时高强度活动造成节律波动。";
+        } else {
+            advice = "建议：继续保持规律作息，睡前减少蓝光暴露并适度放松。";
+        }
+
+        String trend = "趋势：结合近几次结果，建议关注“主要情绪是否连续3次偏负向”，若连续出现可适当调整作息与白天活动节律。";
+        return advice + "\n" + trend;
     }
 
     private void refreshHistory() {

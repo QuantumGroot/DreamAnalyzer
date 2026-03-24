@@ -78,8 +78,17 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LocalDataRepository repository = new LocalDataRepository(requireContext());
-        binding.tvLastEmotion.setText(repository.getLastEmotion());
-        binding.tvTrendAndSuggestion.setText(repository.getLastSuggestion());
+        String emotionCn = toChineseEmotion(repository.getLastEmotion());
+        binding.tvLastEmotion.setText(emotionCn);
+
+        String suggestion = repository.getLastSuggestion();
+        String detailed = "昨晚主要情绪：" + emotionCn + "\n"
+                + suggestion + "\n"
+                + "今日建议执行清单：\n"
+                + "1) 睡前30分钟停止刷屏；\n"
+                + "2) 保持卧室安静与微暗；\n"
+                + "3) 若连续两天偏负向，晚间增加10分钟放松训练。";
+        binding.tvTrendAndSuggestion.setText(detailed);
 
         String lastImagePath = repository.getLastImageStyle();
         File imageFile = new File(lastImagePath == null ? "" : lastImagePath);
@@ -102,6 +111,21 @@ public class HomeFragment extends Fragment {
             return hintText.substring(prefix.length()).trim();
         }
         return "";
+    }
+
+    private String toChineseEmotion(String raw) {
+        if (raw == null) {
+            return "中性";
+        }
+        String v = raw.toLowerCase();
+        if (v.contains("joy") || v.contains("happy")) return "喜悦";
+        if (v.contains("sadness") || v.contains("sad")) return "悲伤";
+        if (v.contains("anger") || v.contains("angry")) return "愤怒";
+        if (v.contains("disgust")) return "厌恶";
+        if (v.contains("fear")) return "恐惧";
+        if (v.contains("surprise")) return "惊讶";
+        if (v.contains("neutral")) return "中性";
+        return raw;
     }
 
     @Override

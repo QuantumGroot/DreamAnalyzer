@@ -19,6 +19,8 @@ public class LocalDataRepository {
     private static final String KEY_LAST_EMOTION = "last_emotion";
     private static final String KEY_LAST_SUGGESTION = "last_suggestion";
     private static final String KEY_LAST_IMAGE_STYLE = "last_image_style";
+    private static final String KEY_LAST_PIE_PATH = "last_pie_path";
+    private static final String KEY_LAST_GENERATION_SUMMARY = "last_generation_summary";
     private static final String KEY_IMAGE_HISTORY = "image_history";
     private static final String KEY_POSTS = "posts";
     private static final String KEY_REGISTERED_USER = "registered_user";
@@ -44,10 +46,16 @@ public class LocalDataRepository {
     }
 
     public void saveLatestAnalysis(String emotion, String suggestion, String imageStyle) {
+        saveLatestAnalysis(emotion, suggestion, imageStyle, "", "");
+    }
+
+    public void saveLatestAnalysis(String emotion, String suggestion, String imageStyle, String piePath, String generationSummary) {
         prefs.edit()
                 .putString(KEY_LAST_EMOTION, emotion)
                 .putString(KEY_LAST_SUGGESTION, suggestion)
                 .putString(KEY_LAST_IMAGE_STYLE, imageStyle)
+                .putString(KEY_LAST_PIE_PATH, piePath == null ? "" : piePath)
+                .putString(KEY_LAST_GENERATION_SUMMARY, generationSummary == null ? "" : generationSummary)
                 .apply();
     }
 
@@ -61,6 +69,14 @@ public class LocalDataRepository {
 
     public String getLastImageStyle() {
         return prefs.getString(KEY_LAST_IMAGE_STYLE, "对应情绪图库随机图");
+    }
+
+    public String getLastPiePath() {
+        return prefs.getString(KEY_LAST_PIE_PATH, "");
+    }
+
+    public String getLastGenerationSummary() {
+        return prefs.getString(KEY_LAST_GENERATION_SUMMARY, "");
     }
 
     public void addGeneratedImageRecord(String day, String emotion, String style, String sourceEdfName) {
@@ -249,6 +265,8 @@ public class LocalDataRepository {
                 .remove(KEY_LAST_EMOTION)
                 .remove(KEY_LAST_SUGGESTION)
                 .remove(KEY_LAST_IMAGE_STYLE)
+                .remove(KEY_LAST_PIE_PATH)
+                .remove(KEY_LAST_GENERATION_SUMMARY)
                 .remove(KEY_PENDING_POST_TITLE)
                 .remove(KEY_PENDING_POST_CONTENT)
                 .remove(KEY_PENDING_POST_IMAGE_PATH)

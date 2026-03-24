@@ -291,7 +291,7 @@ public class SettingsFragment extends Fragment {
         if (avatarFile.exists()) {
             binding.ivAvatar.setImageBitmap(BitmapFactory.decodeFile(avatarFile.getAbsolutePath()));
         } else {
-            binding.ivAvatar.setImageResource(android.R.drawable.sym_def_app_icon);
+            binding.ivAvatar.setImageResource(com.dashstudio.dreamanalyzer.R.drawable.ic_avatar_morandi);
         }
     }
 
