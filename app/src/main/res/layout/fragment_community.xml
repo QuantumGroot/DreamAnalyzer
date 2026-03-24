@@ -1,43 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/morandi_bg"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_page_title_fixed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="社区"
+        android:textColor="@color/morandi_text_primary"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scroll_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="56dp"
+        android:fillViewport="true"
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="社区"
-            android:textColor="@color/morandi_text_primary"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_community_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="点击右下角 + 发布图文博客（本地存储）"
-            android:textColor="@color/morandi_text_secondary"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_post_history"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@color/morandi_card"
-            android:padding="16dp"
-            android:text="暂无博客"
-            android:textColor="@color/morandi_text_primary"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_community_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击右下角 + 发布图文博客"
+                android:textColor="@color/morandi_text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_post_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/morandi_card"
+                android:padding="16dp"
+                android:text="暂无博客"
+                android:textColor="@color/morandi_text_primary"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_post"
@@ -47,7 +60,6 @@
         android:layout_margin="20dp"
         android:contentDescription="发布"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/morandi_primary"
-        xmlns:app="http://schemas.android.com/apk/res-auto" />
+        app:backgroundTint="@color/morandi_primary" />
 
 </FrameLayout>
