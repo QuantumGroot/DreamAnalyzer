@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E4E0DA"
+    android:background="@color/publish_bg"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="返回"
             android:textColor="@color/morandi_primary"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -27,7 +27,7 @@
             android:gravity="center"
             android:text="发布博客"
             android:textColor="@color/morandi_text_primary"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="发布"
             android:textColor="@color/morandi_primary"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -45,7 +45,7 @@
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_marginTop="18dp"
-        android:background="#D7D2CB"
+        android:background="@color/publish_add_bg"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -55,7 +55,7 @@
             android:layout_height="20dp"
             android:scaleType="centerInside"
             android:src="@android:drawable/ic_input_add"
-            android:tint="#9A948C" />
+            android:tint="@color/publish_add_tint" />
     </LinearLayout>
 
     <EditText
@@ -67,7 +67,7 @@
         android:hint="添加标题"
         android:padding="2dp"
         android:textColor="@color/morandi_text_primary"
-        android:textColorHint="#8A847C"
+        android:textColorHint="@color/publish_hint"
         android:textSize="18sp" />
 
     <EditText
@@ -84,7 +84,7 @@
         android:padding="2dp"
         android:scrollbars="vertical"
         android:textColor="@color/morandi_text_primary"
-        android:textColorHint="#8A847C"
+        android:textColorHint="@color/publish_hint"
         android:textSize="17sp" />
 
 </LinearLayout>

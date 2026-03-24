@@ -9,6 +9,12 @@
     <color name="morandi_text_primary">#4F4A45</color>
     <color name="morandi_text_secondary">#7A746E</color>
 
+    <!-- 发布页专用色，白天 -->
+    <color name="publish_bg">#E4E0DA</color>
+    <color name="publish_add_bg">#D7D2CB</color>
+    <color name="publish_add_tint">#9A948C</color>
+    <color name="publish_hint">#8A847C</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

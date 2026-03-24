@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 深色莫兰迪色系 -->
+    <color name="morandi_primary">#7F788F</color>
+    <color name="morandi_primary_dark">#686276</color>
+    <color name="morandi_secondary">#6F8372</color>
+    <color name="morandi_accent">#B58F7C</color>
+    <color name="morandi_bg">#2D2B2A</color>
+    <color name="morandi_card">#3A3735</color>
+    <color name="morandi_text_primary">#E6DED6</color>
+    <color name="morandi_text_secondary">#B8AEA4</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 发布页专用色，夜间自动替换 -->
+    <color name="publish_bg">#34312F</color>
+    <color name="publish_add_bg">#4A4541</color>
+    <color name="publish_add_tint">#B3AAA2</color>
+    <color name="publish_hint">#AEA39A</color>
+</resources>

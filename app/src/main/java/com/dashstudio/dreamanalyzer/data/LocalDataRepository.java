@@ -24,6 +24,15 @@ public class LocalDataRepository {
     private static final String KEY_REGISTERED_USER = "registered_user";
     private static final String KEY_REGISTERED_PASSWORD = "registered_password";
     private static final String KEY_LOGGED_IN_USER = "logged_in_user";
+
+    private static final String KEY_PROFILE_NAME = "profile_name";
+    private static final String KEY_PROFILE_AVATAR_PATH = "profile_avatar_path";
+
+    private static final String KEY_DARK_MODE = "dark_mode";
+    private static final String KEY_NOTIFY_ENABLED = "notify_enabled";
+    private static final String KEY_NOTIFY_START = "notify_start";
+    private static final String KEY_NOTIFY_END = "notify_end";
+
     private static final String KEY_PENDING_POST_TITLE = "pending_post_title";
     private static final String KEY_PENDING_POST_CONTENT = "pending_post_content";
     private static final String KEY_PENDING_POST_IMAGE_PATH = "pending_post_image_path";
@@ -156,6 +165,9 @@ public class LocalDataRepository {
             return "登录失败：账号或密码错误";
         }
         prefs.edit().putString(KEY_LOGGED_IN_USER, username).apply();
+        if (getProfileName().equals("未登录用户") || getProfileName().trim().isEmpty()) {
+            setProfileName(username);
+        }
         return "登录成功";
     }
 
@@ -165,6 +177,61 @@ public class LocalDataRepository {
 
     public void logout() {
         prefs.edit().remove(KEY_LOGGED_IN_USER).apply();
+    }
+
+    public void setProfileName(String name) {
+        prefs.edit().putString(KEY_PROFILE_NAME, name == null ? "" : name.trim()).apply();
+    }
+
+    public String getProfileName() {
+        String profile = prefs.getString(KEY_PROFILE_NAME, "");
+        if (profile != null && !profile.trim().isEmpty()) {
+            return profile;
+        }
+        String logged = getLoggedInUser();
+        if (!"未登录".equals(logged)) {
+            return logged;
+        }
+        return "未登录用户";
+    }
+
+    public void setProfileAvatarPath(String path) {
+        prefs.edit().putString(KEY_PROFILE_AVATAR_PATH, path == null ? "" : path).apply();
+    }
+
+    public String getProfileAvatarPath() {
+        return prefs.getString(KEY_PROFILE_AVATAR_PATH, "");
+    }
+
+    public void setDarkModeEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_DARK_MODE, enabled).apply();
+    }
+
+    public boolean isDarkModeEnabled() {
+        return prefs.getBoolean(KEY_DARK_MODE, false);
+    }
+
+    public void setNotificationEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_NOTIFY_ENABLED, enabled).apply();
+    }
+
+    public boolean isNotificationEnabled() {
+        return prefs.getBoolean(KEY_NOTIFY_ENABLED, true);
+    }
+
+    public void setNotificationTimeRange(String start, String end) {
+        prefs.edit()
+                .putString(KEY_NOTIFY_START, start == null ? "20:00" : start)
+                .putString(KEY_NOTIFY_END, end == null ? "22:30" : end)
+                .apply();
+    }
+
+    public String getNotificationStart() {
+        return prefs.getString(KEY_NOTIFY_START, "20:00");
+    }
+
+    public String getNotificationEnd() {
+        return prefs.getString(KEY_NOTIFY_END, "22:30");
     }
 
     public void clearImageHistory() {
@@ -184,6 +251,7 @@ public class LocalDataRepository {
                 .remove(KEY_LAST_IMAGE_STYLE)
                 .remove(KEY_PENDING_POST_TITLE)
                 .remove(KEY_PENDING_POST_CONTENT)
+                .remove(KEY_PENDING_POST_IMAGE_PATH)
                 .apply();
     }
 
