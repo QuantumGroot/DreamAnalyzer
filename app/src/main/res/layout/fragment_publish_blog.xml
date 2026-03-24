@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/publish_bg"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:paddingTop="30dp">
+    android:background="@color/publish_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"
-            android:textColor="@color/morandi_primary"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="发布博客"
-            android:textColor="@color/morandi_text_primary"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_publish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发布"
-            android:textColor="@color/morandi_primary"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_pick_image"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="18dp"
-        android:background="@color/publish_add_bg"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_blog_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:scaleType="centerInside"
-            android:src="@android:drawable/ic_input_add"
-            android:tint="@color/publish_add_tint" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:textColor="@color/morandi_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="发布博客"
+                android:textColor="@color/morandi_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布"
+                android:textColor="@color/morandi_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_pick_image"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/publish_add_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_blog_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="centerInside"
+                android:src="@android:drawable/ic_input_add"
+                android:tint="@color/publish_add_tint" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_blog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@android:color/transparent"
+            android:hint="添加标题"
+            android:padding="2dp"
+            android:textColor="@color/morandi_text_primary"
+            android:textColorHint="@color/publish_hint"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_blog_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="top|start"
+            android:hint="输入文字，记录你的感受…"
+            android:inputType="textMultiLine"
+            android:overScrollMode="ifContentScrolls"
+            android:padding="2dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/morandi_text_primary"
+            android:textColorHint="@color/publish_hint"
+            android:textSize="17sp" />
+
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_blog_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:background="@android:color/transparent"
-        android:hint="添加标题"
-        android:padding="2dp"
-        android:textColor="@color/morandi_text_primary"
-        android:textColorHint="@color/publish_hint"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/et_blog_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:gravity="top|start"
-        android:hint="输入文字，记录你的感受…"
-        android:inputType="textMultiLine"
-        android:overScrollMode="ifContentScrolls"
-        android:padding="2dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/morandi_text_primary"
-        android:textColorHint="@color/publish_hint"
-        android:textSize="17sp" />
-
-</LinearLayout>
+</FrameLayout>
