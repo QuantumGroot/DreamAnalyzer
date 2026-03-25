@@ -293,10 +293,11 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="（内容待补充）"
+                    android:lineSpacingExtra="3dp"
+                    android:text="DreamAnalyzer 由兰州大学信息科学与工程学院团队开发，致力于通过轻量方式帮助用户回顾昨晚与近期睡眠情绪状态，并提供可执行的日常建议。\n\n温馨提示：本应用用于健康管理与自我观察，不作为医疗诊断依据。如有持续睡眠或情绪困扰，请及时咨询专业医生。\n\n隐私说明：当前版本以本地存储为主，你可在“记录与缓存”中随时清除图片生成历史、社区博客记录与全部缓存。\n\n版本信息：v1.0.0（2026-03-25）\n\n联系我们：1778362729@qq.com"
                     android:textColor="@color/morandi_text_primary"
                     android:textSize="14sp" />
             </LinearLayout>
