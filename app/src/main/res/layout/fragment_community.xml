@@ -38,16 +38,23 @@
                 android:textColor="@color/morandi_text_secondary"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_post_history"
+            <LinearLayout
+                android:id="@+id/layout_post_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="@color/morandi_card"
-                android:padding="16dp"
-                android:text="暂无博客"
-                android:textColor="@color/morandi_text_primary"
-                android:textSize="14sp" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_post_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/morandi_card"
+                    android:padding="16dp"
+                    android:text="暂无博客"
+                    android:textColor="@color/morandi_text_primary"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

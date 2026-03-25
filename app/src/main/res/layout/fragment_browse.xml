@@ -117,14 +117,6 @@
                     android:textColor="@color/morandi_text_primary" />
 
                 <RadioButton
-                    android:id="@+id/rb_strategy_real"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:text="更精确"
-                    android:textColor="@color/morandi_text_primary" />
-
-                <RadioButton
                     android:id="@+id/rb_strategy_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -148,8 +148,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void openAvatarPicker() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         pickAvatarLauncher.launch(intent);
     }

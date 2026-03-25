@@ -37,9 +37,15 @@ public class PublishBlogFragment extends Fragment {
                     Uri uri = result.getData().getData();
                     if (uri != null) {
                         try {
+                            // 先直接预览所选图片，避免因文件复制/解码失败导致看起来“没显示”。
+                            binding.ivBlogImage.setImageURI(uri);
+                            binding.ivBlogImage.setScaleType(android.widget.ImageView.ScaleType.CENTER_CROP);
+                            binding.ivBlogImage.setImageTintList(null);
+                            binding.ivBlogImage.setColorFilter(null);
+
+                            // 再持久化到应用私有目录，供草稿与发布内容复用。
                             selectedImagePath = persistSelectedImage(uri);
-                            binding.ivBlogImage.setImageBitmap(BitmapFactory.decodeFile(selectedImagePath));
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             Toast.makeText(requireContext(), "导入图片失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -69,8 +75,7 @@ public class PublishBlogFragment extends Fragment {
     }
 
     private void openImagePicker() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         pickImageLauncher.launch(intent);
     }
@@ -110,6 +115,8 @@ public class PublishBlogFragment extends Fragment {
                 if (img.exists()) {
                     selectedImagePath = img.getAbsolutePath();
                     binding.ivBlogImage.setImageBitmap(BitmapFactory.decodeFile(selectedImagePath));
+                    binding.ivBlogImage.setScaleType(android.widget.ImageView.ScaleType.CENTER_CROP);
+                    binding.ivBlogImage.setColorFilter(null);
                 }
             }
         }

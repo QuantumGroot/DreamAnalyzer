@@ -1,5 +1,6 @@
 package com.dashstudio.dreamanalyzer.ui.community;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,9 @@ import androidx.navigation.Navigation;
 import com.dashstudio.dreamanalyzer.R;
 import com.dashstudio.dreamanalyzer.data.LocalDataRepository;
 import com.dashstudio.dreamanalyzer.databinding.FragmentCommunityBinding;
+import com.dashstudio.dreamanalyzer.databinding.ItemPostBinding;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,30 +60,83 @@ public class CommunityFragment extends Fragment {
     private void refreshPosts() {
         LocalDataRepository repository = new LocalDataRepository(requireContext());
         List<LocalDataRepository.PostRecord> posts = repository.getPosts();
+
+        binding.layoutPostList.removeAllViews();
+
         if (posts.isEmpty()) {
-            binding.tvPostHistory.setText("暂无博客");
+            binding.tvPostEmpty.setVisibility(View.VISIBLE);
+            binding.layoutPostList.addView(binding.tvPostEmpty);
             return;
         }
 
-        List<String> lines = new ArrayList<>();
+        binding.tvPostEmpty.setVisibility(View.GONE);
+
+        List<LocalDataRepository.PostRecord> topPosts = new ArrayList<>();
         for (int i = 0; i < Math.min(posts.size(), 20); i++) {
-            LocalDataRepository.PostRecord post = posts.get(i);
-            lines.add((i + 1) + ". " + post.title + "\n"
-                    + post.content + "\n"
-                    + "时间：" + post.createdAt);
+            topPosts.add(posts.get(i));
         }
-        binding.tvPostHistory.setText(joinLines(lines));
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        for (int i = 0; i < topPosts.size(); i++) {
+            LocalDataRepository.PostRecord post = topPosts.get(i);
+            ItemPostBinding item = ItemPostBinding.inflate(inflater, binding.layoutPostList, false);
+
+            item.tvPostTitle.setText(post.title);
+
+            String imagePath = extractImagePath(post.content);
+            String contentText = removeImageLine(post.content);
+            item.tvPostContent.setText(contentText);
+            item.tvPostTime.setText("时间：" + post.createdAt);
+
+            if (!imagePath.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    item.ivPostImage.setVisibility(View.VISIBLE);
+                    item.ivPostImage.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                } else {
+                    item.ivPostImage.setVisibility(View.GONE);
+                }
+            } else {
+                item.ivPostImage.setVisibility(View.GONE);
+            }
+
+            binding.layoutPostList.addView(item.getRoot());
+        }
     }
 
-    private String joinLines(List<String> lines) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < lines.size(); i++) {
-            builder.append(lines.get(i));
-            if (i < lines.size() - 1) {
-                builder.append("\n\n");
-            }
+    private String extractImagePath(String content) {
+        if (content == null) {
+            return "";
         }
-        return builder.toString();
+        String tag = "图片：";
+        int idx = content.lastIndexOf(tag);
+        if (idx < 0) {
+            return "";
+        }
+        String tail = content.substring(idx + tag.length()).trim();
+        int lineBreak = tail.indexOf("\n");
+        if (lineBreak >= 0) {
+            return tail.substring(0, lineBreak).trim();
+        }
+        return tail;
+    }
+
+    private String removeImageLine(String content) {
+        if (content == null) {
+            return "";
+        }
+        String[] lines = content.split("\\n");
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            if (line.trim().startsWith("图片：")) {
+                continue;
+            }
+            if (sb.length() > 0) {
+                sb.append("\n");
+            }
+            sb.append(line);
+        }
+        return sb.toString().trim();
     }
 
     @Override

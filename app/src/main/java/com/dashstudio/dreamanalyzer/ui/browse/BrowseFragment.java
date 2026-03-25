@@ -213,9 +213,7 @@ public class BrowseFragment extends Fragment {
 
     private String getSelectedStrategyMode() {
         int checked = binding.rgStrategy.getCheckedRadioButtonId();
-        if (checked == binding.rbStrategyReal.getId()) {
-            return "real";
-        } else if (checked == binding.rbStrategyLight.getId()) {
+        if (checked == binding.rbStrategyLight.getId()) {
             return "light";
         }
         return "auto";
